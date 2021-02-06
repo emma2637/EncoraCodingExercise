@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace EncoraCodignExercise.WebAPI.Controllers
+namespace EncoraCodingExercise.WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]

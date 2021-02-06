@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EncoraCodingExercise.Model
 {
-   public class Properties
+    public class PropertiesOriginalData
     {
 
         public class Rootobject

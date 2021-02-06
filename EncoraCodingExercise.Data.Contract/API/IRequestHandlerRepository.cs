@@ -1,4 +1,4 @@
-﻿using EncoraCodingExercise.Model.ViewModels;
+﻿using EncoraCodingExercise.Model.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,6 +6,6 @@ namespace EncoraCodingExercise.Data.Contract.API
 {
     public interface IRequestHandlerRepository
     {
-        Task<IEnumerable<PropertiesResponse>> GetPropertiesAsync();
+        Task<IEnumerable<Properties>> GetPropertiesAsync();
     }
 }

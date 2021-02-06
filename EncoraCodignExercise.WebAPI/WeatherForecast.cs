@@ -1,6 +1,6 @@
 using System;
 
-namespace EncoraCodignExercise.WebAPI
+namespace EncoraCodingExercise.WebAPI
 {
     public class WeatherForecast
     {

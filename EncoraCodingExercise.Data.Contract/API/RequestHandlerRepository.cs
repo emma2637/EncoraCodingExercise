@@ -1,4 +1,5 @@
 ﻿using EncoraCodingExercise.Model;
+using EncoraCodingExercise.Model.Entities;
 using EncoraCodingExercise.Model.ViewModels;
 using Newtonsoft.Json;
 using System;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using static EncoraCodingExercise.Model.Properties;
+using static EncoraCodingExercise.Model.PropertiesOriginalData;
 
 namespace EncoraCodingExercise.Data.Contract.API
 {
@@ -35,24 +36,27 @@ namespace EncoraCodingExercise.Data.Contract.API
 
         }
 
-        public async Task<IEnumerable<PropertiesResponse>> GetPropertiesAsync()
+        public async Task<IEnumerable<Properties>> GetPropertiesAsync()
         {
 
             var PropertyList = await GetInfoProperties();
-            var result = new List<PropertiesResponse>();
+            var result = new List<Properties>();
 
             PropertyList.ToList().ForEach(x =>
             {
-                result.Add(new PropertiesResponse()
+                result.Add(new Properties()
                 {
+                    
                     AccountNumber = x.accountId,
                     Address =   x.address != null ? x.address.address1 : "",
-                    YearBuilt = x.physical != null ? x.physical.yearBuilt.ToString() : "", //format two decimal places eg 120,000.00
-                    ListPrice = x.financial != null ? x.financial.listPrice.ToString() : "",
-                    MontlyRent = x.financial != null ? x.financial.monthlyRent.ToString() : "",
-                    GrossYield = x.financial != null ? string.Format("{0} {1}", (x.financial.monthlyRent * 12 / x.financial.listPrice), "%") : ""
+                    YearBuilt = x.physical != null ? x.physical.yearBuilt : 0, //format two decimal places eg 120,000.00
+                    ListPrice = x.financial != null ? (long)x.financial.listPrice : 0,
+                    MontlyRent = x.financial != null ? (long)x.financial.monthlyRent : 0,
+                    //GrossYield = x.financial != null ? string.Format("{0} {1}", (x.financial.monthlyRent * 12 / x.financial.listPrice), "%") : 0.0M
+                    GrossYield = x.financial != null ? (decimal)(x.financial.monthlyRent * 12 / x.financial.listPrice) : 0//multiply by 100
                 }); ;
             });
+
             return result;
         }
     }
