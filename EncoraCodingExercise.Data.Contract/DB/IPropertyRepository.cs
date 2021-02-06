@@ -8,6 +8,10 @@ namespace EncoraCodingExercise.Data.Contract.DB
 {
    public interface IPropertyRepository
     {
-        Task<List<PropertiesResponse>> Get();
+        Task<List<UserViewModel>> Get();
+
+        Task<UserViewModel> Get(int accountNumber);
+
+        Task Save(UserViewModel user);
     }
 }

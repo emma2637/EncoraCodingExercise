@@ -18,9 +18,8 @@ namespace EncoraCodingExercise.Model.Entities
         public long ListPrice { get; set; }
 
         public long MontlyRent { get; set; }
-        
-        public decimal GrossYield { get; set; }
 
+        public decimal GrossYield { get; set; }
         public int AccountNumber { get; set; }
     }
 }

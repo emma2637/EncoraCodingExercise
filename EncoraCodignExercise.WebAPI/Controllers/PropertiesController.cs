@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EncoraCodingExercise.Data.Contract.API;
 using EncoraCodingExercise.Data.Contract.DB;
+using EncoraCodingExercise.Model.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -37,16 +38,31 @@ namespace EncoraCodingExercise.WebAPI.Controllers
 
         // GET api/<PropertiesController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return "value";
+            if (id <= 0)
+            {
+                return BadRequest();
+            }
+            var property = await _propertyRepository.Get(id);
+
+            if (property == null)
+            {
+                return NoContent();
+            }
+
+            return Ok(property);
         }
 
         // POST api/<PropertiesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] UserViewModel user)
         {
+           await _propertyRepository.Save(user);
+
+           return CreatedAtAction(nameof(Get), new { id = user.AccountNumber });
         }
+
 
         // PUT api/<PropertiesController>/5
         [HttpPut("{id}")]

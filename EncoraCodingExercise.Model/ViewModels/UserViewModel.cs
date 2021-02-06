@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EncoraCodingExercise.Model.ViewModels
 {
-    public class PropertiesResponse
+    public class UserViewModel
     {
         public int AccountNumber { get; set; }
 
