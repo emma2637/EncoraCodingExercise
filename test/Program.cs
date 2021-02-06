@@ -1,5 +1,4 @@
-﻿using EncoraCodingExercise.Data;
-using EncoraCodingExercise.Data.Contract.API;
+﻿using EncoraCodingExercise.Data.Contract.API;
 using System;
 
 namespace test

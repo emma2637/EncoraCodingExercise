@@ -2,7 +2,7 @@
 
 namespace EncoraCodingExercise.Data
 {
-    public class Class1
+    public class DbContext
     {
     }
 }

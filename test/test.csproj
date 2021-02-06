@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EncoraCodingExercise.Data\EncoraCodingExercise.Data.Contract.csproj" />
+    <ProjectReference Include="..\EncoraCodingExercise.Data.Contract\EncoraCodingExercise.Data.Contract.csproj" />
   </ItemGroup>
 
 </Project>
