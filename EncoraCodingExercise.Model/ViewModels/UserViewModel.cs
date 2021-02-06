@@ -7,6 +7,7 @@ namespace EncoraCodingExercise.Model.ViewModels
 {
     public class UserViewModel
     {
+        public int Id { get; set; }
         public int AccountNumber { get; set; }
 
         public string Address { get; set; }

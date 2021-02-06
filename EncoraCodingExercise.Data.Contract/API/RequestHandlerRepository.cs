@@ -30,7 +30,6 @@ namespace EncoraCodingExercise.Data.Contract.API
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
 

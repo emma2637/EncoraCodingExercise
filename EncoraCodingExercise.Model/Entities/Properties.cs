@@ -8,6 +8,7 @@ namespace EncoraCodingExercise.Model.Entities
 {
     public class Properties
     {
+        [Key]
         [Required]
         public int Id { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using EncoraCodingExercise.Model.ViewModels;
+﻿using EncoraCodingExercise.Model.API;
+using EncoraCodingExercise.Model.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +9,15 @@ namespace EncoraCodingExercise.Data.Contract.DB
 {
    public interface IPropertyRepository
     {
-        Task<List<UserViewModel>> Get();
+        Task<ServiceResponse<List<UserViewModel>>> Get();
 
-        Task<UserViewModel> Get(int accountNumber);
+        Task<ServiceResponse<UserViewModel>> Get(int id);
 
-        Task Save(UserViewModel user);
+
+        Task<ServiceResponse<int>> Save(UserViewModel user);
+
+        Task<ServiceResponse<int>> Update(UserViewModel user);
+
+
     }
 }

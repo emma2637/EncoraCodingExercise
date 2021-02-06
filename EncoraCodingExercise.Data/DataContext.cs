@@ -12,7 +12,8 @@ namespace EncoraCodingExercise.Data
         }
 
         public DbSet<Properties> Properties { get; set; }
+        public DbSet<User> AuthUser { get; set; }
 
-     
+
     }
 }

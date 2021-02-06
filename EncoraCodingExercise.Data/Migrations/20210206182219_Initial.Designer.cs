@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EncoraCodingExercise.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210206031949_First")]
-    partial class First
+    [Migration("20210206182219_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,8 +33,8 @@ namespace EncoraCodingExercise.Data.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("GrossYield")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("GrossYield")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<long>("ListPrice")
                         .HasColumnType("bigint");

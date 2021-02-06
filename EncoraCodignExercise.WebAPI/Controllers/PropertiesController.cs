@@ -26,14 +26,14 @@ namespace EncoraCodingExercise.WebAPI.Controllers
         public async Task<IActionResult> Get()
         {
 
-            var properties = await _propertyRepository.Get();
+            var response = await _propertyRepository.Get();
 
-            if (properties == null)
+            if (!response.Success)
             {
-                return NoContent();
+                return NotFound(response);
             }
 
-            return Ok(properties);
+            return Ok(response);
         }
 
         // GET api/<PropertiesController>/5
@@ -44,36 +44,45 @@ namespace EncoraCodingExercise.WebAPI.Controllers
             {
                 return BadRequest();
             }
-            var property = await _propertyRepository.Get(id);
 
-            if (property == null)
+            var response = await _propertyRepository.Get(id);
+
+            if (!response.Success)
             {
-                return NoContent();
+                return NotFound(response);
             }
 
-            return Ok(property);
+            return Ok(response);
         }
 
         // POST api/<PropertiesController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] UserViewModel user)
         {
-           await _propertyRepository.Save(user);
 
-           return CreatedAtAction(nameof(Get), new { id = user.AccountNumber });
+            var response = await _propertyRepository.Save(user);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+
+            return CreatedAtAction(nameof(Get), new { id = user.Id });
         }
 
 
         // PUT api/<PropertiesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(UserViewModel user)
         {
+
+            var response = await _propertyRepository.Update(user);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+
+            return CreatedAtAction(nameof(Get), new { id = user.Id });
         }
 
-        // DELETE api/<PropertiesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
