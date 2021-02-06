@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using EncoraCodingExercise.Data.Contract.DB;
 
 namespace EncoraCodingExercise.WebAPI
 {
@@ -24,6 +25,8 @@ namespace EncoraCodingExercise.WebAPI
             services.AddControllers();
             services.AddDbContext<DataContext>(x=>x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IRequestHandlerRepository, RequestHandlerRepository>();
+            services.AddScoped<IPropertyRepository, PropertyRepository>();
+         
 
         }
 

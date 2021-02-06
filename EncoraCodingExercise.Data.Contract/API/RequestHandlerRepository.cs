@@ -38,7 +38,6 @@ namespace EncoraCodingExercise.Data.Contract.API
 
         public async Task<IEnumerable<Properties>> GetPropertiesAsync()
         {
-
             var PropertyList = await GetInfoProperties();
             var result = new List<Properties>();
 
@@ -46,14 +45,13 @@ namespace EncoraCodingExercise.Data.Contract.API
             {
                 result.Add(new Properties()
                 {
-                    
                     AccountNumber = x.accountId,
                     Address =   x.address != null ? x.address.address1 : "",
                     YearBuilt = x.physical != null ? x.physical.yearBuilt : 0, //format two decimal places eg 120,000.00
                     ListPrice = x.financial != null ? (long)x.financial.listPrice : 0,
                     MontlyRent = x.financial != null ? (long)x.financial.monthlyRent : 0,
                     //GrossYield = x.financial != null ? string.Format("{0} {1}", (x.financial.monthlyRent * 12 / x.financial.listPrice), "%") : 0.0M
-                    GrossYield = x.financial != null ? (decimal)(x.financial.monthlyRent * 12 / x.financial.listPrice) : 0//multiply by 100
+                    GrossYield = x.financial != null ? (decimal)(x.financial.monthlyRent * 12 / x.financial.listPrice)*100 : 0//multiply by 100
                 }); ;
             });
 

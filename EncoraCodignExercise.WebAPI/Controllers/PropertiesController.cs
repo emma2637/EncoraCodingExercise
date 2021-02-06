@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EncoraCodingExercise.Data.Contract.API;
+using EncoraCodingExercise.Data.Contract.DB;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,10 +14,10 @@ namespace EncoraCodingExercise.WebAPI.Controllers
     [ApiController]
     public class PropertiesController : ControllerBase
     {
-        private readonly IRequestHandlerRepository _requestRepository;
-        public PropertiesController(IRequestHandlerRepository requestRepository)
+        private readonly IPropertyRepository _propertyRepository;
+        public PropertiesController(IPropertyRepository propertyRepository)
         {
-            _requestRepository = requestRepository;
+            _propertyRepository = propertyRepository;
         }
 
         // GET: api/<PropertiesController>
@@ -24,7 +25,7 @@ namespace EncoraCodingExercise.WebAPI.Controllers
         public async Task<IActionResult> Get()
         {
 
-            var properties = await _requestRepository.GetPropertiesAsync();
+            var properties = await _propertyRepository.Get();
 
             if (properties == null)
             {
