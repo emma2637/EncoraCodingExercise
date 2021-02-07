@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EncoraCodingExercise.WebAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PropertiesController : ControllerBase
@@ -59,6 +59,7 @@ namespace EncoraCodingExercise.WebAPI.Controllers
 
         // POST api/<PropertiesController>
         [HttpPost]
+        [ActionName("Create")]
         public async Task<IActionResult> Post([FromBody] UserViewModel user)
         {
 
@@ -74,6 +75,8 @@ namespace EncoraCodingExercise.WebAPI.Controllers
 
         // PUT api/<PropertiesController>/5
         [HttpPut("{id}")]
+        [ActionName("Update")]
+
         public async Task<IActionResult> Put(UserViewModel user)
         {
 

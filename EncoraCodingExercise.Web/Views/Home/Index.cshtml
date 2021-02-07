@@ -1,0 +1,88 @@
+﻿@*@{
+    ViewData["Title"] = "Home Page";
+}
+@model UserPropertyViewModel
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered" id="tbtEditable">
+                <thead>
+                    <tr>
+                        <th scope="col">Address</th>
+                        <th scope="col">Year Built</th>
+                        <th scope="col">List Price</th>
+                        <th scope="col">Monthly Rent</th>
+                        <th scope="col">Gross Yield</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var acc in Model.Data)
+                    {
+                        <tr>
+                            <th scope="row">@acc.Address</th>
+                            <td>@acc.YearBuilt</td>
+                            <td>@acc.ListPrice</td>
+                            <td>@acc.MontlyRent</td>
+                            <td>@acc.GrossYield</td>
+                            <td>
+                                <button id="btnSave" type="button" class="btn btn-primary" data-id="@acc.Id"><i class="far fa-eye">Save</i></button>
+                                <button id="btnEdit" type="button" class="btn btn-success" data-id="@acc.Id"><i class="fas fa-edit">Edit</i></button>
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>*@
+
+
+<div class="table-content">
+    <table class="table table-borded table-responsive table-striped " id="table-list">
+        <thead class="table-dark">
+            <tr>
+                <td>Name</td>
+                <td>Gental</td>
+                <td>eMail</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>James</td>
+                <td>Male</td>
+                <td>jhsdfgh@hotmail.com</td>
+            </tr>
+            <tr>
+                <td>Sams</td>
+                <td>Male</td>
+                <td>hhfdfg@hotmail.com</td>
+            </tr>
+            <tr>
+                <td>Mary</td>
+                <td>Female</td>
+                <td>vccch@gmail.com</td>
+            </tr>
+            <tr>
+                <td>Ashly</td>
+                <td>Female</td>
+                <td>asss@gmail.com</td>
+            </tr>
+            <tr>
+                <td>Eden</td>
+                <td>Male</td>
+                <td>edd@hotmail.com</td>
+            </tr>
+            <tr>
+                <td>Daisy</td>
+                <td>Female</td>
+                <td>hhdf@gmail.com</td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-info" id="add">
+        <span class="glyphicon glyphicon-plus-sign"></span>Add New Members
+    </button>
+</div>

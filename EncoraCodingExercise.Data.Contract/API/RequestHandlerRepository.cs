@@ -21,6 +21,7 @@ namespace EncoraCodingExercise.Data.Contract.API
             {
                 using (HttpClient client = new HttpClient())
                 {
+                    //change url way to get it from app.config
                     var url = new Uri("https://samplerspubcontent.blob.core.windows.net/public/properties.json");
                     var getUri = client.GetAsync(url);
                     var json = await getUri.Result.Content.ReadAsStringAsync();
