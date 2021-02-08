@@ -27,10 +27,21 @@ namespace EncoraCodingExercise.Web.Services
             ApiBaseUrl = _configuration.GetValue<string>("WebAPIBaseUrl");
         }
 
-        public async Task<UserPropertyViewModel> GetCatalogItems()
+        public async Task<UserPropertyViewModel> GetAllItems()
         {
             var allcatalogItemsUri = ApiPaths.GetAllUserProperties(ApiBaseUrl);
         
+            var dataString = await _apiClient.GetStringAsync(allcatalogItemsUri);
+
+            var response = JsonConvert.DeserializeObject<UserPropertyViewModel>(dataString);
+
+            return response;
+        }
+
+        public async Task<UserPropertyViewModel> Save(UserPropertyViewModel model)
+        {
+            var allcatalogItemsUri = ApiPaths.GetAllUserProperties(ApiBaseUrl);
+
             var dataString = await _apiClient.GetStringAsync(allcatalogItemsUri);
 
             var response = JsonConvert.DeserializeObject<UserPropertyViewModel>(dataString);

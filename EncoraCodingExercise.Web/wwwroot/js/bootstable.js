@@ -9,17 +9,17 @@ Bootstable
 var params = null;  		//Parameters
 var colsEdi = null;
 var newColHtml = '<div class="btn-group pull-right">' +
-    '<button id="bEdit" type="button" class="btn btn-sm btn-default" onclick="rowEdit(this);">' +
-    '<span class="glyphicon glyphicon-pencil" > </span>' +
+    '<button id="bEdit" type="button" class="btn btn-sm btn-default" onclick="rowEdit(this);" data-bs-toggle="tooltip" title="Edit">' +
+    '<i class="fas fa-pen"></i>' +
     '</button>' +
-    '<button id="bElim" type="button" class="btn btn-sm btn-default" onclick="rowElim(this);">' +
-    '<span class="glyphicon glyphicon-trash" > </span>' +
+    '<button id="bElim" type="button" class="btn btn-sm btn-default d-none" onclick="rowElim(this);">' +
+    '<i class="fas fa-trash-alt"></i>' +
     '</button>' +
-    '<button id="bAcep" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowAcep(this);">' +
-    '<span class="glyphicon glyphicon-ok" > </span>' +
+    '<button id="bAcep" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowAcep(this);" data-bs-toggle="tooltip" title="Save">' +
+    '<i class="fas fa-check"></i>' +
     '</button>' +
-    '<button id="bCanc" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowCancel(this);">' +
-    '<span class="glyphicon glyphicon-remove" > </span>' +
+    '<button id="bCanc" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowCancel(this);" data-bs-toggle="tooltip" title="Cancel">' +
+    '<i class="fas fa-times"></i>' +
     '</button>' +
     '</div>';
 var colEdicHtml = '<td name="buttons">' + newColHtml + '</td>';

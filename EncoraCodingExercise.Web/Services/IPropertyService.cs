@@ -8,6 +8,6 @@ namespace EncoraCodingExercise.Web.Services
 {
     public interface IPropertyService
     {
-        Task<UserPropertyViewModel> GetCatalogItems();
+        Task<UserPropertyViewModel> GetAllItems();
     }
 }
