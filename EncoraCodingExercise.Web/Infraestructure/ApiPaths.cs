@@ -21,9 +21,9 @@ namespace EncoraCodingExercise.Web.Infraestructure
             return $"{baseUri}/properties/create";
         }
 
-        public static string UpdateProperty(string baseUri)
+        public static string UpdateProperty(string baseUri,int id)
         {
-            return $"{baseUri}/properties/update";
+            return $"{baseUri}/properties/{id}";
         }
     }
 }

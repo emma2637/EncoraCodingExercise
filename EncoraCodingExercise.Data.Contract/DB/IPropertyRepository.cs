@@ -9,14 +9,14 @@ namespace EncoraCodingExercise.Data.Contract.DB
 {
    public interface IPropertyRepository
     {
-        Task<ServiceResponse<List<UserViewModel>>> Get();
+        Task<ServiceResponse<List<UserResponseViewModel>>> Get();
 
-        Task<ServiceResponse<UserViewModel>> Get(int id);
+        Task<ServiceResponse<UserResponseViewModel>> Get(int id);
 
 
         Task<ServiceResponse<int>> Save(UserViewModel user);
 
-        Task<ServiceResponse<int>> Update(UserViewModel user);
+        Task<ServiceResponse<int>> Update(int id, UserViewModel user);
 
 
     }

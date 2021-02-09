@@ -7,8 +7,6 @@ namespace EncoraCodingExercise.Web.Infraestructure
     {
         Task<string> GetStringAsync(string uri);
 
-        Task<HttpResponseMessage> PostAsync<T>(string uri, T item);
-
-        Task<HttpResponseMessage> PutAsync<T>(string uri, T item);
+        Task<string> PutAsync<T>(string uri, T item);
     }
 }

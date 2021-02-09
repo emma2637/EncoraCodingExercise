@@ -10,7 +10,7 @@ using EncoraCodingExercise.Data.Contract.DB;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-
+using Microsoft.OpenApi.Models;
 namespace EncoraCodingExercise.WebAPI
 {
     public class Startup
@@ -42,6 +42,21 @@ namespace EncoraCodingExercise.WebAPI
                         ValidateAudience = false
                     };
                 });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Enconra API",
+                    Version = "v1",
+                    Description = "Description for the API goes here.",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Emmanuel Carvajal",
+                        Email = string.Empty
+                    },
+                });
+            });
+            services.AddCors();
 
         }
 
@@ -52,6 +67,14 @@ namespace EncoraCodingExercise.WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+            //this is to allow cross origin with angular app
+            app.UseCors(options=>options.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
             app.UseHttpsRedirection();
 

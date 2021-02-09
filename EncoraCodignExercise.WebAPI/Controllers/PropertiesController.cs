@@ -62,14 +62,18 @@ namespace EncoraCodingExercise.WebAPI.Controllers
         [ActionName("Create")]
         public async Task<IActionResult> Post([FromBody] UserViewModel user)
         {
-
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
             var response = await _propertyRepository.Save(user);
+            
             if (!response.Success)
             {
                 return BadRequest(response);
             }
 
-            return CreatedAtAction(nameof(Get), new { id = user.Id });
+            return CreatedAtAction(nameof(Get), new { id = 0 },user);//test
         }
 
 
@@ -77,16 +81,19 @@ namespace EncoraCodingExercise.WebAPI.Controllers
         [HttpPut("{id}")]
         [ActionName("Update")]
 
-        public async Task<IActionResult> Put(UserViewModel user)
+        public async Task<IActionResult> Put(int id,UserViewModel user)
         {
-
-            var response = await _propertyRepository.Update(user);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var response = await _propertyRepository.Update(id,user);
             if (!response.Success)
             {
                 return BadRequest(response);
             }
 
-            return CreatedAtAction(nameof(Get), new { id = user.Id });
+            return CreatedAtAction(nameof(Get), new { id },user);
         }
 
     }

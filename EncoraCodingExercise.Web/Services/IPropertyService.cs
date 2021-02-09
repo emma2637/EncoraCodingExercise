@@ -9,5 +9,7 @@ namespace EncoraCodingExercise.Web.Services
     public interface IPropertyService
     {
         Task<UserPropertyViewModel> GetAllItems();
+
+        Task<UserPropertyViewModel> Save(ResponseViewModel model);
     }
 }

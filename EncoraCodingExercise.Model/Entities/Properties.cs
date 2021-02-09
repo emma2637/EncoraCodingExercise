@@ -14,11 +14,11 @@ namespace EncoraCodingExercise.Model.Entities
 
         public string Address { get; set; }
 
-        public long YearBuilt { get; set; }
+        public int YearBuilt { get; set; }
 
-        public long ListPrice { get; set; }
+        public decimal ListPrice { get; set; }
 
-        public long MontlyRent { get; set; }
+        public decimal MontlyRent { get; set; }
 
         public decimal GrossYield { get; set; }
         public int AccountNumber { get; set; }

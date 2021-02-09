@@ -20,29 +20,28 @@ namespace EncoraCodingExercise.Data.Contract.DB
             _context = context;
         }
 
-        public async Task<ServiceResponse<List<UserViewModel>>> Get()
+        public async Task<ServiceResponse<List<UserResponseViewModel>>> Get()
         {
-           
-            ServiceResponse<List<UserViewModel>> response = new ServiceResponse<List<UserViewModel>>();
+
+            ServiceResponse<List<UserResponseViewModel>> response = new ServiceResponse<List<UserResponseViewModel>>();
 
             try
             {
                 var items = await _context.Properties.ToListAsync();
 
                 //mapping values
-                var result = new List<UserViewModel>();
+                var result = new List<UserResponseViewModel>();
                 items.ForEach(x =>
                 {
 
-                    result.Add(new UserViewModel()
+                    result.Add(new UserResponseViewModel()
                     {
                         Id = x.Id,
-                        AccountNumber = x.AccountNumber,
                         Address = x.Address,
-                        GrossYield = x.GrossYield.ToString("#.##"),
-                        ListPrice = x.ListPrice.ToString("#.##"),
-                        MontlyRent = x.MontlyRent.ToString("#.##"),
-                        YearBuilt = x.YearBuilt.ToString()
+                        GrossYield = x.GrossYield,
+                        ListPrice = x.ListPrice,
+                        MontlyRent = x.MontlyRent,
+                        YearBuilt = x.YearBuilt
                     });
                 });
 
@@ -56,14 +55,14 @@ namespace EncoraCodingExercise.Data.Contract.DB
                 response.Success = false;
                 response.Message = "Error Creating New User " + ex.Message;
             }
-            
-          
+
+
             return response;
         }
-        public async Task<ServiceResponse<UserViewModel>> Get(int id)
+        public async Task<ServiceResponse<UserResponseViewModel>> Get(int id)
         {
-            ServiceResponse<UserViewModel> response = new ServiceResponse<UserViewModel>();
-          
+            ServiceResponse<UserResponseViewModel> response = new ServiceResponse<UserResponseViewModel>();
+
             try
             {
                 var item = await _context.Properties.SingleOrDefaultAsync(x => x.Id == id);
@@ -75,15 +74,14 @@ namespace EncoraCodingExercise.Data.Contract.DB
                     return response;
                 }
 
-                response.Data = new UserViewModel()
+                response.Data = new UserResponseViewModel()
                 {
                     Id = item.Id,
-                    AccountNumber = item.AccountNumber,
                     Address = item.Address,
-                    GrossYield = item.GrossYield.ToString("#.##"),
-                    ListPrice = item.ListPrice.ToString("#.##"),
-                    MontlyRent = item.MontlyRent.ToString("#.##"),
-                    YearBuilt = item.YearBuilt.ToString()
+                    GrossYield = item.GrossYield,
+                    ListPrice = item.ListPrice,
+                    MontlyRent = item.MontlyRent,
+                    YearBuilt = item.YearBuilt
                 };
 
                 response.Success = true;
@@ -93,9 +91,9 @@ namespace EncoraCodingExercise.Data.Contract.DB
             {
 
                 response.Success = false;
-                response.Message = "Error Creating New User " + ex.Message   ;
+                response.Message = "Error Creating New User " + ex.Message;
             }
-            
+
             return response;
 
         }
@@ -111,28 +109,21 @@ namespace EncoraCodingExercise.Data.Contract.DB
             }
             try
             {
-                var userValidation = _context.Properties.Where(x => x.Id == user.Id);
-
-                if (userValidation == null)
-                {
-                    response.Success = false;
-                    response.Message = "User already Exist!";
-                    return response;
-                }
+                
 
                 var newUser = new Properties()
                 {
-                    AccountNumber = user.AccountNumber,
                     Address = user.Address,
-                    GrossYield = Convert.ToDecimal(user.GrossYield, CultureInfo.InvariantCulture),
-                    ListPrice = long.Parse(user.ListPrice, NumberStyles.Currency, CultureInfo.InvariantCulture),
-                    MontlyRent = long.Parse(user.MontlyRent, NumberStyles.Currency, CultureInfo.InvariantCulture),
-                    YearBuilt = long.Parse(user.YearBuilt, NumberStyles.Currency, CultureInfo.InvariantCulture)
+                    ListPrice = user.ListPrice,
+                    MontlyRent = user.MontlyRent,
+                    YearBuilt = user.YearBuilt,
+                    GrossYield = (user.MontlyRent * 12 / user.ListPrice)
+
                 };
 
                 _context.Properties.Add(newUser);
                 await _context.SaveChangesAsync();
-                
+
                 response.Success = true;
                 response.Message = "User created successfully";
             }
@@ -145,12 +136,12 @@ namespace EncoraCodingExercise.Data.Contract.DB
 
         }
 
-        public async Task<ServiceResponse<int>> Update(UserViewModel user)
+        public async Task<ServiceResponse<int>> Update(int id, UserViewModel user)
         {
             ServiceResponse<int> response = new ServiceResponse<int>();
             try
             {
-                var userToUpdate = await _context.Properties.SingleOrDefaultAsync(x => x.Id == user.Id);
+                var userToUpdate = await _context.Properties.SingleOrDefaultAsync(x => x.Id == id);
 
                 if (userToUpdate == null)
                 {
@@ -159,16 +150,13 @@ namespace EncoraCodingExercise.Data.Contract.DB
                     return response;
                 }
 
-                userToUpdate = new Properties()
-                {
-                    AccountNumber = user.AccountNumber,
-                    Address = user.Address,
-                    GrossYield = Convert.ToDecimal(user.GrossYield, CultureInfo.InvariantCulture),
-                    ListPrice = long.Parse(user.ListPrice, NumberStyles.Currency, CultureInfo.InvariantCulture),
-                    MontlyRent = long.Parse(user.MontlyRent, NumberStyles.Currency, CultureInfo.InvariantCulture),
-                    YearBuilt = long.Parse(user.YearBuilt, NumberStyles.Currency, CultureInfo.InvariantCulture)
-                };
-                _context.Properties.Update(userToUpdate);
+                userToUpdate.Address = user.Address;
+                userToUpdate.ListPrice = user.ListPrice;
+                userToUpdate.MontlyRent = user.MontlyRent;
+                userToUpdate.YearBuilt = user.YearBuilt;
+                userToUpdate.GrossYield = (user.MontlyRent * 12 / user.ListPrice);
+
+                //_context.Properties.Update(userToUpdate);
                 await _context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -176,10 +164,8 @@ namespace EncoraCodingExercise.Data.Contract.DB
                 response.Success = false;
                 response.Message = "Fail Updating User properties" + ex.Message;
             }
-                return response;
+            return response;
 
         }
-
-     
     }
 }

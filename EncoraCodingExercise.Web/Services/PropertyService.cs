@@ -29,25 +29,23 @@ namespace EncoraCodingExercise.Web.Services
 
         public async Task<UserPropertyViewModel> GetAllItems()
         {
-            var allcatalogItemsUri = ApiPaths.GetAllUserProperties(ApiBaseUrl);
+            var uri = ApiPaths.GetAllUserProperties(ApiBaseUrl);
         
-            var dataString = await _apiClient.GetStringAsync(allcatalogItemsUri);
+            var dataString = await _apiClient.GetStringAsync(uri);
 
             var response = JsonConvert.DeserializeObject<UserPropertyViewModel>(dataString);
 
             return response;
         }
-
-        public async Task<UserPropertyViewModel> Save(UserPropertyViewModel model)
+        public async Task<UserPropertyViewModel> Save(ResponseViewModel model)
         {
-            var allcatalogItemsUri = ApiPaths.GetAllUserProperties(ApiBaseUrl);
+            var uri = ApiPaths.UpdateProperty(ApiBaseUrl,model.Id);
 
-            var dataString = await _apiClient.GetStringAsync(allcatalogItemsUri);
+            var dataString = await _apiClient.PutAsync(uri,model);
 
             var response = JsonConvert.DeserializeObject<UserPropertyViewModel>(dataString);
 
             return response;
         }
-
     }
 }

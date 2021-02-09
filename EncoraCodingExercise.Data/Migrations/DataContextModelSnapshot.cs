@@ -35,14 +35,14 @@ namespace EncoraCodingExercise.Data.Migrations
                     b.Property<decimal>("GrossYield")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<long>("ListPrice")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("ListPrice")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<long>("MontlyRent")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("MontlyRent")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<long>("YearBuilt")
-                        .HasColumnType("bigint");
+                    b.Property<int>("YearBuilt")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -39,9 +39,29 @@ namespace EncoraCodingExercise.Web.Infraestructure
             return await DoPostPutAsync(HttpMethod.Post, uri, item);
         }
 
-        public async Task<HttpResponseMessage> PutAsync<T>(string uri, T item)
+        public async Task<string> PutAsync<T>(string uri, T item)
         {
-            return await DoPostPutAsync(HttpMethod.Put, uri, item);
+
+            //var requestMessage = new HttpRequestMessage(HttpMethod.Put, uri)
+            //{
+            //    Content = new StringContent(JsonConvert.SerializeObject(item), System.Text.Encoding.UTF8, "application/json")
+            //};
+
+            //var response = await _client.SendAsync(requestMessage);
+
+            //return await response.Content.ReadAsStringAsync();
+
+
+            var requestMessage = new HttpRequestMessage(HttpMethod.Put, uri)
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(item), System.Text.Encoding.UTF8, "application/json")
+            };
+
+            var response = await _client.PutAsync(uri, requestMessage.Content);
+
+            return response.ToString();
+
+
         }
 
         private async Task<HttpResponseMessage> DoPostPutAsync<T>(HttpMethod method, string uri, T item)

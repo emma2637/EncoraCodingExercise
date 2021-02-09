@@ -26,25 +26,20 @@ namespace EncoraCodingExercise.Web.Controllers
         public async Task<JsonResult> GetProperties(int? page, int? limit,string sortBy, string direction, string searchString = null)
         {
             var response = await _propertyService.GetAllItems();
-            List<ResponseViewModel> records;
-            var queryResult = response.Data.Select(p => new ResponseViewModel { 
-                Id = p.Id,
-                Address = p.Address,
-                YearBuilt = p.YearBuilt,
-                ListPrice = p.ListPrice,
-                MontlyRent = p.MontlyRent,
-                GrossYield = p.GrossYield
-            });
+            List<ResponseViewModel> records = MappingResponse(response);
             var total = 5;
-            records = queryResult.ToList();
             return Json(new { records, total });
         }
 
+      
         [HttpPost]
-        public async Task<JsonResult> Save(UserPropertyViewModel property)
+        public async Task<JsonResult> Save(ResponseViewModel property)
         {
-            //await _propertyService.Save(property)
-            return Json(true);
+            var response = await _propertyService.Save(property);
+            List<ResponseViewModel> records = MappingResponse(response);
+            var total = 5;
+            return Json(new { records, total });
+
         }
 
 
@@ -53,5 +48,22 @@ namespace EncoraCodingExercise.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        private static List<ResponseViewModel> MappingResponse(UserPropertyViewModel response)
+        {
+            List<ResponseViewModel> records;
+            var queryResult = response.Data.Select(p => new ResponseViewModel
+            {
+                Id = p.Id,
+                Address = p.Address,
+                YearBuilt = p.YearBuilt,
+                ListPrice = p.ListPrice,
+                MontlyRent = p.MontlyRent,
+                GrossYield = p.GrossYield
+            });
+            records = queryResult.ToList();
+            return records;
+        }
+
     }
 }
